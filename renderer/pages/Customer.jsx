@@ -24,9 +24,14 @@ function CustomerPreviousOrders(props){
 }
 
 function Customer() {
+  const [cus_id_from_user,setData] = useState(null);
   const [showActiveOrders,setActiveOrders] = useState(false);
   const [showPreviosOrders,setPreviousOrders] = useState(false);
-  const [cus_id_from_user,setData] = useState(null);
+  function getData(val){
+    setData(val.target.value);
+
+  }
+  
 
 
   return (
@@ -41,7 +46,10 @@ function Customer() {
           </Link>
         </p>
         <label>Customer id:</label>
-        <input type="text" value={cus_id_from_user} onChange={(e)=>setData(e.value)}></input>
+        <input type="text" value={cus_id_from_user} onChange={getData}></input>
+
+        
+        
         
 
 
