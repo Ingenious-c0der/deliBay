@@ -111,15 +111,13 @@ function Customer() {
             <a>Go to home page</a>
           </Link>
         </p>
+        <p>
+          <Link href="/CustomerOrderInsert">
+            <a>Go to Create Order</a>
+          </Link>
+        </p>
         <label>Customer id:</label>
         <input type="text" value={cus_id_from_user} onChange={getData}></input>
-
-        
-        
-        
-
-
-
       </div>
       <div>
         <button onClick={() => setActiveOrders(true)}>ActiveOrders</button>
