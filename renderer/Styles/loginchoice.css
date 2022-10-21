@@ -1,0 +1,14 @@
+.LoginChoice{
+    display: flex;
+/*background-color: blue;*/
+    flex-direction: column;
+    float: left;
+    width: 30%;
+    text-align: center;
+    
+}
+
+.LoginChoice-img{
+    width: 35%;
+    align-self: center;
+}
