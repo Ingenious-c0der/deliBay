@@ -48,6 +48,7 @@ create Table Vehicles (
   vehicle_type_id int ,
   last_maintenance_date DATE,
   kiloms_from_last_maint int ,
+  vehicle_multiplier int ,
   primary key (vehicle_id)
 );
 
