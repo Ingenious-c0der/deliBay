@@ -4,20 +4,20 @@ import Link from 'next/link';
 
 
 
-function CustomerActiveOrders(cus_id_from_user){
+function CustomerActiveOrders(props){
   return(
     <div>
-        <h1>ActiveOrders</h1>
+        <h1>ActiveOrders {props.name}</h1>
     </div>
 
   );
 }
 
-function CustomerPreviousOrders(cus_id_from_user){
+function CustomerPreviousOrders(props){
   
   return(
     <div>
-        <h1>PreviousOrders</h1>
+        <h1>PreviousOrders {props.name}</h1>
     </div>
 
   );
@@ -50,8 +50,8 @@ function Customer() {
       <div>
         <button onClick={() => setActiveOrders(true)}>ActiveOrders</button>
         <button onClick={() => setPreviousOrders(true)}>PreviousOrders</button>
-        {showActiveOrders && <CustomerActiveOrders/>}
-        {showPreviosOrders && <CustomerPreviousOrders/>}
+        {showActiveOrders && <CustomerActiveOrders name={cus_id_from_user}/>}
+        {showPreviosOrders && <CustomerPreviousOrders name={cus_id_from_user}/>}
 
       </div>
 
