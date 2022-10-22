@@ -20,6 +20,7 @@ function CustomerPreviousOrders(props){
 
   return(
     <container>
+      <p>{props.name}</p>
       <table>
         <thead>
           <tr>
@@ -64,6 +65,7 @@ function CustomerActiveOrders(props){
 
   return(
     <container>
+      <p>{props.name}</p>
       <table>
         <thead>
           <tr>
@@ -93,10 +95,11 @@ function CustomerActiveOrders(props){
 
 function Customer() {
   const [cus_id_from_user,setData] = useState(null);
-  const [showActiveOrders,setActiveOrders] = useState(false);
-  const [showPreviosOrders,setPreviousOrders] = useState(false);
+  const [print,setPrint] = useState(false);
   function getData(val){
     setData(val.target.value);
+    console.log(val.target.value);
+    setPrint(false);
 
   }
   
@@ -122,10 +125,11 @@ function Customer() {
         <input type="text" value={cus_id_from_user} onChange={getData}></input>
       </div>
       <div>
-        <button onClick={() => setActiveOrders(true)}>ActiveOrders</button>
-        <button onClick={() => setPreviousOrders(true)}>PreviousOrders</button>
-        {showActiveOrders && <CustomerActiveOrders name={cus_id_from_user}/>}
-        {showPreviosOrders && <CustomerPreviousOrders name={cus_id_from_user}/>}
+        <button onClick={() => {setPrint(true);}}>Submit</button>
+        
+
+        {print && <CustomerActiveOrders name={cus_id_from_user}/>}
+        {print && <CustomerPreviousOrders name={cus_id_from_user}/>}
 
       </div>
 
