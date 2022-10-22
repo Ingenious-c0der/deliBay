@@ -222,17 +222,17 @@
 
 
    /*procedure for ordering items */
-   set delimiter // 
+    delimiter // 
     create procedure OrderItem( IN  package_contents_in varchar(20), IN delivery_type_in int, IN customer_id int )
     BEGIN
 
-      declare order_date date default GETDATE(); 
+      declare order_date date ; 
       declare package_id_F int;
-      declare order_id int  ;
+      declare order_id_F int  ;
       declare cus_region_id  int ;
       declare pac_region_id int ;
       declare veh_id int ;
-      declare emp_id int ; 
+      declare emp_id_F int ; 
       declare vehi_mul int ; 
       declare delivery_cost int default 0 ;
       declare emp_id_for_rating INT ; 
@@ -241,26 +241,30 @@
       declare kiloms_run int; 
       declare current_kiloms_run int; 
       declare vehicle_type_id_F int ; 
-      declare distance_kiloms int; 
+      declare distance_kiloms_F int; 
       declare allowed_kiloms_before_maint int ;
       declare maint_date  DATE; 
+      SET order_date = CURRENT_DATE() ; 
       SET package_id_F = (select package_id from packages where package_contents_in = package_contents);
+      update packages set quantity = quantity - 1 where package_id = package_id_F;
       Insert into Orders values (default, customer_id, package_id_F, delivery_type_in, order_date, 0 ,0, package_contents_in);
-      SET order_id = (SELECT MAX(id) FROM Orders);
-      Insert into active_orders values (customer_id, order_id ) ;
-      Insert into order_history values (customer_id, order_id ) ;
-      delete from active_orders where customer_id = customer_id and order_id = order_id;
-      SET cus_region_id = (select region_id from customers where cus_id = customer_id);
+      SET order_id_F = (SELECT MAX(order_id) FROM Orders);
+      Insert into active_orders values (customer_id, order_id_F ) ;
+      Insert into order_history values (customer_id, order_id_F ) ;
+      delete from active_orders where customer_id = customer_id and order_id = order_id_F;
+      SET cus_region_id = (select region_id from customer where cus_id = customer_id);
       SET pac_region_id = (select region_id from packages NATURAL JOIN warehouses where package_id_F = package_id);
       SET route_id_F = (select route_id from routes where end_region_id = cus_region_id and start_region_id = pac_region_id);
-      Insert into transport_logistics values (customer_id,order_id,route_id_F);
+      Insert into transport_logistics values (customer_id,order_id_F,route_id_F);
       SET veh_id = (select vehicle_id from routes where route_id = route_id_F);
-      SET emp_id = (select emp_id from vehicles where vehicle_id = veh_id);
+      SET emp_id_F = (select emp_id from vehicles where vehicle_id = veh_id);
+
       SET vehicle_type_id_F = (select vehicle_type_id from vehicles where vehicle_id = veh_id);
       SET vehi_mul = (select vehicle_multiplier from vehicles where vehicle_id = veh_id);
+      SET maint_date = (select last_maintenance_date from vehicles where vehicle_id = veh_id);
       SET deli_type_mul = (select delivery_cost_multiplier from delivery_type where delivery_type_id = delivery_type_in);
-      SET distance_kiloms = (select distance_kiloms from routes where route_id = route_id_F);
-      SET current_kiloms_run = (select kiloms_from_last_maint from vehicles where vehicle_id = veh_id) + distance_kiloms;
+      SET distance_kiloms_F = (select distance_kiloms from routes where route_id = route_id_F);
+      SET current_kiloms_run = (select kiloms_from_last_maint from vehicles where vehicle_id = veh_id) + distance_kiloms_F;
       SET vehicle_type_id_F = (select vehicle_type_id from vehicles where vehicle_id = veh_id);
       SET allowed_kiloms_before_maint = (select maint_kiloms from vehicle_type where vehicle_type_id = vehicle_type_id_F);
       IF current_kiloms_run > allowed_kiloms_before_maint THEN
@@ -269,12 +273,13 @@
       update vehicles set last_maintenance_date = maint_date where vehicle_id = veh_id;
       END IF;
       update vehicles set kiloms_from_last_maint = current_kiloms_run where vehicle_id = veh_id;
-      SET delivery_cost = (distance_kiloms * vehi_mul * deli_type_mul * 0.005);
-      insert into Involved values (order_id, emp_id);
-      update Orders set delivery_price = delivery_cost,completed = 1 where id = order_id;
-      SET emp_id_for_rating = emp_id;
-      select emp_id_for_rating as EMPFRATING, delivery_price as PRICE ;
+      SET delivery_cost = distance_kiloms_F * vehi_mul * deli_type_mul * 0.005;
+      insert into Involved values ( emp_id_F,order_id_F);
+      update Orders set delivery_price = delivery_cost,completed = 1 where order_id = order_id_F;
+      SET emp_id_for_rating = emp_id_F;
+      select emp_id_for_rating as EMPFRATING, delivery_cost as PRICE, package_id_F, order_id_F, veh_id, vehicle_type_id_F, vehi_mul, deli_type_mul, route_id_F, distance_kiloms_F, current_kiloms_run, vehicle_type_id_F, allowed_kiloms_before_maint, maint_date;
     END //
+      delimiter ;
    /*procedure for rating employee */
     create procedure rate_Employee(IN new_rating int, IN emp_id_for_rating int)
     BEGIN 
@@ -284,7 +289,7 @@
       SET emp_total_handles = (select total_handles from employees where emp_id = emp_id_for_rating) + 1;
       update employees set cumulative_rating = new_overall_rating, total_handles = emp_total_handles where emp_id = emp_id_for_rating;
       END //
-    set delimiter ; 
+     delimiter ; 
 
 
    /*Support queries*/
