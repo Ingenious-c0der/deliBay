@@ -61,6 +61,7 @@ create Table Ratings (
 create table Vehicle_Type (
   vehicle_type_id int ,
   vehicle_type varchar(20),
+  maint_kiloms int ,
   primary key(vehicle_type_id) 
   
 );
