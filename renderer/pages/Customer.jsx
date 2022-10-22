@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-
+import {test} from '../components/dbcomponents.js';
 
 function CustomerPreviousOrders(props){
   const [category,setCategory] = useState([]);
   useEffect(()=>{
     const getCategory = async() => {
+
       const res = await fetch('');
       //JSON response for the api && id is in props
       const getdata = await res.json();
@@ -50,7 +51,8 @@ function CustomerActiveOrders(props){
   const [category,setCategory] = useState([]);
   useEffect(()=>{
     const getCategory = async() => {
-      const res = await fetch('');
+       await test();
+       const res =  fetch('');
       //JSON response for the api && id in props
       const getdata = await res.json();
       setCategory(getdata);
