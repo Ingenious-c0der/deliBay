@@ -12,10 +12,11 @@
   },
   "dependencies": {
     "electron-serve": "^1.1.0",
-    "electron-store": "^8.1.0"
+    "electron-store": "^8.1.0",
+    "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "electron": "^6.1.12",
+    "electron": "^21.0.1",
     "electron-builder": "^22.10.3",
     "next": "^12.2.5",
     "nextron": "^8.2.0",

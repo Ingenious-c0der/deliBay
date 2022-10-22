@@ -1,6 +1,7 @@
-import { app } from 'electron';
+import { app , ipcMain } from 'electron';
 import serve from 'electron-serve';
 import { createWindow } from './helpers';
+const dbAct = require('./helpers/dbActivities.js');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -26,6 +27,12 @@ if (isProd) {
     mainWindow.webContents.openDevTools();
   }
 })();
+
+ipcMain.handle(
+  'DBtest', (event, arg) => {
+    return dbAct.test();
+  }
+);
 
 app.on('window-all-closed', () => {
   app.quit();
