@@ -132,14 +132,14 @@ function CustomerOrderInsert() {
             <Link href="/home">
               <a>Go to home page</a>
             </Link>
-            <Link href="/Customer">
+            <Link href="/CustomerId">
               <a>Go to Id page</a>
             </Link>
           </p>
         </div>
         <div>
         <OrderForm cus_id = {id}/>
-          <CustomerPreviousOrders cus_id = {id}/>
+        <CustomerPreviousOrders cus_id = {id}/>
           
 
         </div>

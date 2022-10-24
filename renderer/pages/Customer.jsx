@@ -1,6 +1,15 @@
 import React,{useState,useEffect, useMemo} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+
+import {test} from '../components/dbcomponents.js';
+
+
+
+
+
+
+
 function Customer() {
   const [cus_id_from_user,setData] = useState(null);
   //const [print,setPrint] = useState(false);
