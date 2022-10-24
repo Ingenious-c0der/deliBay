@@ -34,6 +34,65 @@ ipcMain.handle(
   }
 );
 
+ipcMain.handle(
+  'DBclose', (event, arg) => {
+    return dbAct.closeDB();
+  }
+);
+
+ipcMain.handle(
+  'DBorder', (event, arg) => {
+    console.log(arg);
+    return dbAct.order(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBorder_history', (event, arg) => {
+    return dbAct.order_history(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBrate_Employee', (event, arg) => {
+    return dbAct.rate_Employee(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBwarehouse_view', (event, arg) => {
+    return dbAct.warehouse_view(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBorders_involved', (event, arg) => {
+    return dbAct.orders_involved(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBvehicle_view', (event, arg) => {
+    return dbAct.vehicle_view(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBemployee_rating_view', (event, arg) => {
+    return dbAct.employee_rating_view(arg);
+  }
+);
+
+ipcMain.handle(
+  'DBadminQuery', (event, arg) => {
+    return dbAct.adminQuery(arg);
+  }
+);
+
+
+
+
+
 app.on('window-all-closed', () => {
   app.quit();
 });
