@@ -14,7 +14,8 @@
     "electron-serve": "^1.1.0",
     "electron-store": "^8.1.0",
     "git-filter-repo": "^0.0.30",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "react-table": "^7.8.0"
   },
   "devDependencies": {
     "electron": "^21.0.1",

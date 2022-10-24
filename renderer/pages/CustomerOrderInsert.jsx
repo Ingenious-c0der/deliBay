@@ -132,7 +132,7 @@ function CustomerOrderInsert() {
             <Link href="/home">
               <a>Go to home page</a>
             </Link>
-            <Link href="/CustomerId">
+            <Link href="/Customer">
               <a>Go to Id page</a>
             </Link>
           </p>
