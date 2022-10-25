@@ -1,30 +1,30 @@
  
  /*Setting regions*/
- Insert into region values (default,"East India");
- Insert into region values (default,"West India");
- Insert into region values (default,"USA");
- Insert into region values (default,"North India");
- Insert into region values (default,"Japan");
- Insert into region values (default,"China");
- Insert into region values (default,"West Europe");
- Insert into region values (default,"East Europe");
+ Insert into Region values (default,"East India");
+ Insert into Region values (default,"West India");
+ Insert into Region values (default,"USA");
+ Insert into Region values (default,"North India");
+ Insert into Region values (default,"Japan");
+ Insert into Region values (default,"China");
+ Insert into Region values (default,"West Europe");
+ Insert into Region values (default,"East Europe");
 
- Insert into delivery_type values (1,"One-Day Delivery",10);
- Insert into delivery_type values (2,"Standard Delivery",3);
- Insert into delivery_type values (3,"Prime Delivery",5);
+ Insert into Delivery_Type values (1,"One-Day Delivery",10);
+ Insert into Delivery_Type values (2,"Standard Delivery",3);
+ Insert into Delivery_Type values (3,"Prime Delivery",5);
 
- Insert into vehicle_type values (1,"Truck",10000);
- Insert into vehicle_type values (2,"Van",5000);
- Insert into vehicle_type values (3,"Train",100000);
- Insert into vehicle_type values (4,"Plane",25000);
- Insert into vehicle_type values (5,"Ship",50000);
+ Insert into Vehicle_Type values (1,"Truck",10000);
+ Insert into Vehicle_Type values (2,"Van",5000);
+ Insert into Vehicle_Type values (3,"Train",100000);
+ Insert into Vehicle_Type values (4,"Plane",25000);
+ Insert into Vehicle_Type values (5,"Ship",50000);
 
- Insert into route_type values (1,"Land");
- Insert into route_type values (2,"Air");
- Insert into route_type values (3,"Sea");
+ Insert into Route_Type values (1,"Land");
+ Insert into Route_Type values (2,"Air");
+ Insert into Route_Type values (3,"Sea");
 
-    Insert into work_type values (1,"Driver");
-    Insert into work_type values (2,"Warehouse Manager");
+    Insert into Work_type values (1,"Driver");
+    Insert into Work_type values (2,"Warehouse Manager");
  
     Insert into Warehouses values(default, 2);
     Insert into Warehouses values(default, 3);
