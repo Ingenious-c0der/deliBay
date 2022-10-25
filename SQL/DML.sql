@@ -50,19 +50,19 @@
     Insert into employees values (default,12352,4,2,"Nicholas","Doe","wdaC Street",4,5,0);
     Insert into employees values (default,17000,1,1,"Tom","Doe","sdsda Street",1,5,0);
 
-    Insert into customer values (default,1,"John","Doe","ABC Street",9850136815,"doe@john.com");
-    Insert into customer values (default,2,"Jane","Doe","XYZ Street",9850136815,"doe@jane.com");
-    Insert into customer values (default,3,"James","Fox","PQR Street",9850136815,"fox@james.com");
-    Insert into customer values (default,4,"Amanda","Doe","nwq Street",9850136815,"doe@aman");
-    Insert into customer values (default,5,"Kelly","Doe","wdadad Street",9850136815,"edioasd");
-    Insert into customer values (default,6,"Andrea","Doe","ed3wd Street",9850136815,"wdadad");
-    Insert into customer values (default,7,"Craig","Doe","dc3exc Street",9850136815,"wdadad");
-    Insert into customer values (default,8,"Ryan","Doe","re2da Street",9850136815,"wdadad");
-    Insert into customer values (default,1,"lori","Doe","asdda Street",9850136815,"wdadad");
-    Insert into customer values (default,2,"Matthew","Doe","kew Street",9850136815,"wdadad");
-    Insert into customer values (default,3,"Anne","Doe","lane Street",9850136815,"wdadad");
-    Insert into customer values (default,4,"Nicholas","Doe","wdaC Street",9850136815,"wdadad");
-    Insert into customer values (default,5,"Tom","Doe","sdsda Street",9850136815,"wdadad");
+    Insert into Customer values (default,1,"John","Doe","ABC Street",9850136815,"doe@john.com");
+    Insert into Customer values (default,2,"Jane","Doe","XYZ Street",9850136815,"doe@jane.com");
+    Insert into Customer values (default,3,"James","Fox","PQR Street",9850136815,"fox@james.com");
+    Insert into Customer values (default,4,"Amanda","Doe","nwq Street",9850136815,"doe@aman");
+    Insert into Customer values (default,5,"Kelly","Doe","wdadad Street",9850136815,"edioasd");
+    Insert into Customer values (default,6,"Andrea","Doe","ed3wd Street",9850136815,"wdadad");
+    Insert into Customer values (default,7,"Craig","Doe","dc3exc Street",9850136815,"wdadad");
+    Insert into Customer values (default,8,"Ryan","Doe","re2da Street",9850136815,"wdadad");
+    Insert into Customer values (default,1,"lori","Doe","asdda Street",9850136815,"wdadad");
+    Insert into Customer values (default,2,"Matthew","Doe","kew Street",9850136815,"wdadad");
+    Insert into Customer values (default,3,"Anne","Doe","lane Street",9850136815,"wdadad");
+    Insert into Customer values (default,4,"Nicholas","Doe","wdaC Street",9850136815,"wdadad");
+    Insert into Customer values (default,5,"Tom","Doe","sdsda Street",9850136815,"wdadad");
 
     Insert into Vehicles values(default,1,1,2,DATE('2019-01-01'),0,1);
     Insert into Vehicles values(default,2,3,3,DATE('2019-01-01'),0,4);
