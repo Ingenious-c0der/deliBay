@@ -32,6 +32,8 @@
     Insert into Warehouses values(default, 5);
     Insert into Warehouses values(default, 6);
     Insert into Warehouses values(default, 1);
+    Insert into Warehouses values(default, 7);
+    Insert into Warehouses values(default, 8);
 
                                      
  Insert into employees values (default,12341,2,1,"John","Doe","ABC Street",2,5,0);
