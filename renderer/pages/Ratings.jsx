@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 
-function Next() {
+function Ratings() {
 
     const [id,Setid] = useState('');
     //var cusid = id;
@@ -57,4 +57,4 @@ function Next() {
   );
 };
 
-export default Next;
+export default Ratings;

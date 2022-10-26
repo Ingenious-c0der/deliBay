@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState,useMemo,useEffect } from 'react';
+import {useTable } from "react-table";
 import Head from 'next/head';
 import Link from 'next/link';
+import { adminQuery } from '../components/dbcomponents';
 
 function TableMaker(props){
-  var command = props.command;
+  const command = props.commands;
   const [orders,setOrders] = useState([]);
-  const fetchOrders = async() =>{
-    /*const response = await axios
+   const fetchOrders = async() =>{
+   /*const response = await axios
     .get("https://fakestoreapi.com/products")
     .catch((err) => console.log(err));
   
@@ -14,9 +16,26 @@ function TableMaker(props){
       const order = response.data;
       setOrders(order);
       
-    }
-    */
+    }*/
+      const response = adminQuery(command);
+      //console.log('ordess'+response);
+
+      if(response){
+        for (let index = 0; index < response.length; index++) {
+          const element = array[index];
+          
+        }
+    
+        const orders = JSON.stringify(response);
+        console.log('ordess'+orders);
+        setOrders(orders);
+        
+    
+      }
+    
   };
+
+  
   const ordersData = useMemo(() => [...orders],[orders]);
   const ordersColumns = useMemo(
     ()=>
@@ -35,66 +54,63 @@ function TableMaker(props){
   },[]);
   return(
     <div>
-    <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <thead{...column.getHeaderProps()}>
-                  {column.render("Header")}
-                </thead>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-
-            return (
-              <tr{...row.getRowProps()}>
-                {row.cells.map((cell, idx) => (
-                  <td {...cell.getCellProps()}>
-                    {cell.render("Cell")}
-                  </td>
+    <p>sdfsf</p>
+      <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <thead{...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </thead>
                 ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+
+              return (
+                <tr{...row.getRowProps()}>
+                  {row.cells.map((cell, idx) => (
+                    <td {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
 
   )
 };
 
-function OrderForm(props){
-  const cus_id = props.cus_id;
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    var PackageContents = document.getElementById('PackageContents').value;
-    var DeliveryType = document.getElementById('DeliveryType').value;
-    var date = new Date().toLocaleDateString();
-    //console.log(PackageContents+DeliveryType+date+cus_id);
-    location.href = "/Ratings"
-
-    //MySQlfunction insert
-
-     
+function CommandBox(){
+  const [Command,changeCommand] = useState('');
+  const [Show,setShow] = useState(false);
+  function getData(val){
+    changeCommand(val.target.value);
+    setShow(false);
 
   }
+
   return(
-    <form onSubmit={handleSubmit}>
-      <label>PackageContents:
-        <input type="text" id="PackageContents"></input>
-      </label>
-      <label>
-        <input type="text" />
+    <div>
+    
+    <label>Query:
+        <input type="text" value={Command} onChange={getData} id="Command"></input>
+    </label>
+      <button onClick={()=>{setShow(true)}}>See Table</button>
+      
 
-      </label>
-      <input type="submit"/>
-
-    </form>
+    
+    {Show && <TableMaker commands = {Command}/>}
+    
+    
+    </div>
 
   )
 }
@@ -107,11 +123,12 @@ function Admin() {
       </Head>
       <div>
         <p>
-          ⚡ Electron + Next.js ⚡ -
           <Link href="/home">
             <a>Go to home page</a>
           </Link>
         </p>
+        <CommandBox/>
+        
       </div>
     </React.Fragment>
   );

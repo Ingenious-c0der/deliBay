@@ -44,7 +44,7 @@ exports.order = function(args) {
 
 exports.order_history = function(cus_id)
 {
-  var query = 'select order_date,package_contents from Orders where order_id in (select order_id from order_history where cus_id = '+cus_id+');';
+  var query = 'select order_date,package_contents from Orders where order_id in (select order_id from Order_History where cus_id = '+cus_id+');';
     connection.query(query,function(err,rows,fields){
         if(err){
             console.log(err);
@@ -136,6 +136,7 @@ exports.employee_rating_view = function(emp_id)
 
 exports.adminQuery = function(query)
 {
+    
     connection.query(query,function(err,rows,fields){
         if(err){
             console.log(err);
@@ -143,7 +144,10 @@ exports.adminQuery = function(query)
         } else {
             console.log(rows);
             console.log("Success");
-            return rows; 
+            //ret.push(JSON.stringify(rows));
+            return rows;
+
         }
+        
     });
 }

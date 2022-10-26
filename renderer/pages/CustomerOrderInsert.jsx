@@ -2,11 +2,22 @@ import React,{useState,useEffect,useMemo} from 'react';
 import {useTable } from "react-table";
 import Head from 'next/head';
 import Link from 'next/link';
+import { order, order_history } from '../components/dbcomponents';
 
 function CustomerPreviousOrders(props){
-  var cus_id = props.cus_id;
+  const cus_id = props.cus_id;
   const [orders,setOrders] = useState([]);
   const fetchOrders = async() =>{
+    console.log(cus_id);
+    const response = await order_history(cus_id);
+    if(response){
+      
+      const order = response.data;
+      setOrders(order);
+      console.log(response);
+      
+    }
+
     /*const response = await axios
     .get("https://fakestoreapi.com/products")
     .catch((err) => console.log(err));
@@ -36,6 +47,7 @@ function CustomerPreviousOrders(props){
   },[]);
   return(
     <div>
+    <p>{cus_id}</p>
     <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
@@ -75,9 +87,10 @@ function OrderForm(props){
     e.preventDefault();
     var PackageContents = document.getElementById('PackageContents').value;
     var DeliveryType = document.getElementById('DeliveryType').value;
-    var date = new Date().toLocaleDateString();
+    //var date = new Date().toLocaleDateString();
     //console.log(PackageContents+DeliveryType+date+cus_id);
-    location.href = "/Ratings"
+    order(PackageContents,DeliveryType,cus_id);
+    //location.href = "/Ratings"
 
     //MySQlfunction insert
 
