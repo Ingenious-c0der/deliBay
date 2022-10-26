@@ -84,8 +84,8 @@ ipcMain.handle(
 );
 
 ipcMain.handle(
-  'DBadminQuery', (event, arg) => {
-    return dbAct.adminQuery(arg);
+  'DBadminQuery',async (event, arg) => {
+    return  dbAct.adminQuery(arg);
   }
 );
 

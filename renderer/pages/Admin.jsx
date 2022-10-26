@@ -17,17 +17,20 @@ function TableMaker(props){
       setOrders(order);
       
     }*/
-      const response = adminQuery(command);
-      //console.log('ordess'+response);
-
+      const response = await adminQuery(command);
+      console.log('ordess'+response);
+      console.log(response.keys()); // gives an iterator of the keys, use it to parse 
       if(response){
         for (let index = 0; index < response.length; index++) {
-          const element = array[index];
+          const element = response[index];
+          console.log(element);
+          //console.log(JSON.parse(element)); 
+        //   //then write custom parser 
           
         }
     
-        const orders = JSON.stringify(response);
-        console.log('ordess'+orders);
+        //const orders = JSON.stringify(response);
+        //console.log('ordess'+orders);
         setOrders(orders);
         
     

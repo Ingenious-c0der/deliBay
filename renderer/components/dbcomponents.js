@@ -136,6 +136,7 @@ export async function employee_rating_view(emp_id)
     try {
         if (ipcRenderer) {
             var res=  await ipcRenderer.invoke('DBemployee_rating_view', emp_id);
+           
             console.log(res);
             return res;
     
@@ -152,6 +153,7 @@ export async  function adminQuery(query )
     try {
         if (ipcRenderer) {
             var res=  await ipcRenderer.invoke('DBadminQuery', query);
+            console.log("returned from dbAct");
             console.log(res);
             return res;
     
