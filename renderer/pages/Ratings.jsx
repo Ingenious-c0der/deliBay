@@ -1,25 +1,34 @@
 import React,{useState,useEffect} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import { rate_Employee } from '../components/dbcomponents';
 
 function Ratings() {
 
-    const [id,Setid] = useState('');
-    //var cusid = id;
+  const [id,Setid] = useState('');
+  const [empid,SetEmpId] = useState('');
+  //var cusid = id;
+
+
+
+  // Perform localStorage action
+  useEffect(()=>{
+    //console.log(id);
+    Setid(window.localStorage.getItem('id2'));
+    SetEmpId(window.localStorage.getItem('id3'));
+    //console.log(id);
+
+  },[])
+
 
   
   
   
     // Perform localStorage action
-    useEffect(()=>{
-      console.log(id);
-      Setid(window.localStorage.getItem('id1'));
-      console.log(id);
-
-    },[])
     const handleSubmit = (e) =>{
         e.preventDefault();
         var r = document.getElementById('Rating').value;
+        rate_Employee(empid,r);
         
 
         location.href = "/Customer"
