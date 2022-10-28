@@ -8,18 +8,33 @@ function TableMaker(props){
   const command = props.commands;
   const [orders,setOrders] = useState([]);
   const fetchOrders = async() =>{
-
-    const response = await adminQuery(command);
-    console.log('ordess'+response);
-
+   /*const response = await axios
+    .get("https://fakestoreapi.com/products")
+    .catch((err) => console.log(err));
+  
     if(response){
+      const order = response.data;
+      setOrders(order);
+      
+    }*/
+      const response = await adminQuery(command);
+      console.log('ordess'+response);
+
+      if(response){
+        console.log(response)
+        const orders = JSON.parse(JSON.stringify(response));
+        setOrders(orders);
+        console.log('ordess'+ orders);
+        setOrders(orders);
+          
+        }
     
         const orders = JSON.stringify(response);
         console.log('ordess'+orders);
         setOrders(orders);
-    }
         
     
+      }
     
   };
 
@@ -48,9 +63,9 @@ function TableMaker(props){
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <thead{...column.getHeaderProps()}>
+                  <th{...column.getHeaderProps()}>
                     {column.render("Header")}
-                  </thead>
+                  </th>
                 ))}
               </tr>
             ))}
