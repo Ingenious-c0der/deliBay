@@ -7,7 +7,7 @@ import { adminQuery } from '../components/dbcomponents';
 function TableMaker(props){
   const command = props.commands;
   const [orders,setOrders] = useState([]);
-   const fetchOrders = async() =>{
+  const fetchOrders = async() =>{
    /*const response = await axios
     .get("https://fakestoreapi.com/products")
     .catch((err) => console.log(err));
@@ -17,17 +17,14 @@ function TableMaker(props){
       setOrders(order);
       
     }*/
-      const response = adminQuery(command);
-      //console.log('ordess'+response);
+      const response = await adminQuery(command);
+      console.log('ordess'+response);
 
       if(response){
-        for (let index = 0; index < response.length; index++) {
-          const element = array[index];
-          
-        }
+
     
-        const orders = JSON.stringify(response);
-        console.log('ordess'+orders);
+        const orders = JSON.parse(JSON.stringify(response));
+        console.log(orders);
         setOrders(orders);
         
     
@@ -54,7 +51,7 @@ function TableMaker(props){
   },[]);
   return(
     <div>
-    <p>sdfsf</p>
+    <p></p>
       <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (

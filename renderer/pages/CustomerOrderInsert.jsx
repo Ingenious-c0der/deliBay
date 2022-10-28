@@ -5,29 +5,22 @@ import Link from 'next/link';
 import { order, order_history } from '../components/dbcomponents';
 
 function CustomerPreviousOrders(props){
-  const cus_id = props.cus_id;
-  const [orders,setOrders] = useState([]);
+  var [cus_id,Setid] = useState(window.localStorage.getItem('id1'));
+
+  var [orders,setOrders] = useState([]);
+
+
+  
   const fetchOrders = async() =>{
-    console.log(cus_id);
     const response = await order_history(cus_id);
     if(response){
       
-      const order = response.data;
-      setOrders(order);
-      console.log(response);
+      const orders = JSON.parse(JSON.stringify(response));
+      setOrders(orders);
+      console.log('Response'+orders);
       
     }
 
-    /*const response = await axios
-    .get("https://fakestoreapi.com/products")
-    .catch((err) => console.log(err));
-  
-    if(response){
-      const order = response.data;
-      setOrders(order);
-      
-    }
-    */
   };
   const ordersData = useMemo(() => [...orders],[orders]);
   const ordersColumns = useMemo(
@@ -43,19 +36,22 @@ function CustomerPreviousOrders(props){
   const tableInstance = useTable({columns: ordersColumns,data:ordersData});
   const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance;
   useEffect(() => {
+    //Setid(window.localStorage.getItem('id1'));
     fetchOrders();
+    //fetchOrders();
   },[]);
+
   return(
     <div>
-    <p>{cus_id}</p>
+    <p>{props.cus_id}</p>
     <table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <thead{...column.getHeaderProps()}>
+                <tr{...column.getHeaderProps()}>
                   {column.render("Header")}
-                </thead>
+                </tr>
               ))}
             </tr>
           ))}
@@ -82,24 +78,32 @@ function CustomerPreviousOrders(props){
 };
 
 function OrderForm(props){
-  const cus_id = props.cus_id;
-  const handleSubmit = (e) =>{
+  var [cus_id,Setid] = useState(props.cus_id);
+  useEffect(()=>{
+      //console.log(cus_id);
+      Setid(window.localStorage.getItem('id1'));
+      //console.log(cus_id);
+
+  })
+  const handleSubmit = async(e) =>{
     e.preventDefault();
     var PackageContents = document.getElementById('PackageContents').value;
     var DeliveryType = document.getElementById('DeliveryType').value;
-    //var date = new Date().toLocaleDateString();
-    //console.log(PackageContents+DeliveryType+date+cus_id);
-    order(PackageContents,DeliveryType,cus_id);
-    //location.href = "/Ratings"
+    var response = await order(PackageContents,DeliveryType,cus_id);
+    if(response){
+      
+      const EMP_ID = JSON.parse(JSON.stringify(response));
+      window.localStorage.setItem("id3",EMP_ID[0][0].EMPFRATING);
+      
+      //console.log('Response');
+      
+    }
 
-    //MySQlfunction insert
-
-     
-
+    location.href = "/Ratings";
   }
   return(
     <form onSubmit={handleSubmit}>
-      <label>PackageContents:
+      <label>PackageContents{cus_id}:
         <input type="text" id="PackageContents"></input>
       </label>
       <label>
@@ -127,11 +131,17 @@ function CustomerOrderInsert() {
   
     // Perform localStorage action
     useEffect(()=>{
-      console.log(id);
+      //console.log(id);
       Setid(window.localStorage.getItem('id1'));
-      console.log(id);
+      //console.log(id);
 
     },[])
+    let myComponent;
+    if(id!='') {
+        myComponent = <CustomerPreviousOrders />
+    } else {
+        myComponent = null
+    }
   
   
   
@@ -141,18 +151,17 @@ function CustomerOrderInsert() {
 
         <div>
           <p>
-            {id}
             <Link href="/home">
               <a>Go to home page</a>
             </Link>
-            <Link href="/CustomerId">
+            <Link href="/Customer">
               <a>Go to Id page</a>
             </Link>
           </p>
         </div>
         <div>
         <OrderForm cus_id = {id}/>
-        <CustomerPreviousOrders cus_id = {id}/>
+        {myComponent}
           
 
         </div>

@@ -30,7 +30,7 @@ function Employee() {
       </div>
       <div>
         <button onClick={() => {
-          window.localStorage.setItem("id1",emp_id_from_user);
+          window.localStorage.setItem("id2",emp_id_from_user);
           //setPrint(true);
 
           location.href = "/EmployeeTables";
