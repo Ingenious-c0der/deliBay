@@ -17,26 +17,24 @@ function TableMaker(props){
       setOrders(order);
       
     }*/
-      const response = await adminQuery(command);
-      console.log('ordess'+response);
+    const response = await adminQuery(command);
+    console.log('ordess'+response);
 
-      if(response){
-        console.log(response)
-        const orders = JSON.parse(JSON.stringify(response));
-        setOrders(orders);
-        console.log('ordess'+ orders);
-        setOrders(orders);
+    if(response){
+      console.log(response)
+      const orders = JSON.parse(JSON.stringify(response));
+      setOrders(orders);
+      console.log('ordess'+ orders);
+      setOrders(orders);
           
-        }
+    }
     
-        const orders = JSON.stringify(response);
-        console.log('ordess'+orders);
-        setOrders(orders);
+
         
     
-      }
+    }
     
-  };
+  
 
   
   const ordersData = useMemo(() => [...orders],[orders]);
@@ -87,9 +85,10 @@ function TableMaker(props){
           </tbody>
         </table>
       </div>
-
   )
+
 };
+
 
 function CommandBox(){
   const [Command,changeCommand] = useState('');
