@@ -8,33 +8,18 @@ function TableMaker(props){
   const command = props.commands;
   const [orders,setOrders] = useState([]);
   const fetchOrders = async() =>{
-   /*const response = await axios
-    .get("https://fakestoreapi.com/products")
-    .catch((err) => console.log(err));
-  
-    if(response){
-      const order = response.data;
-      setOrders(order);
-      
-    }*/
-      const response = await adminQuery(command);
-      console.log('ordess'+response);
 
-      if(response){
-        for (let index = 0; index < response.length; index++) {
-          const element = response[index];
-          console.log(element);
-          //console.log(JSON.parse(element)); 
-        //   //then write custom parser 
-          
-        }
+    const response = await adminQuery(command);
+    console.log('ordess'+response);
+
+    if(response){
     
         const orders = JSON.stringify(response);
         console.log('ordess'+orders);
         setOrders(orders);
+    }
         
     
-      }
     
   };
 
