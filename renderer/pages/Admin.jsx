@@ -18,23 +18,21 @@ function TableMaker(props){
       
     }*/
       const response = await adminQuery(command);
-      console.log('ordess'+response);
+      console.log('ordess'+ response);
 
       if(response){
-        for (let index = 0; index < response.length; index++) {
-          const element = response[index];
-          console.log(element);
-          //console.log(JSON.parse(element)); 
-        //   //then write custom parser 
+        console.log(response)
+        const orders = JSON.parse(JSON.stringify(response));
+        setOrders(orders);
+        console.log('ordess'+ orders);
+        setOrders(orders);
           
         }
     
-        const orders = JSON.stringify(response);
-        console.log('ordess'+orders);
-        setOrders(orders);
+        
         
     
-      }
+      
     
   };
 
@@ -63,9 +61,9 @@ function TableMaker(props){
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <thead{...column.getHeaderProps()}>
+                  <th{...column.getHeaderProps()}>
                     {column.render("Header")}
-                  </thead>
+                  </th>
                 ))}
               </tr>
             ))}
