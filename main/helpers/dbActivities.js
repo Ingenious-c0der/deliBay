@@ -63,7 +63,7 @@ exports.warehouse_view = async function(emp_id)
 
 exports.orders_involved = async function(emp_id)
 {
-    var query = ' select * from Orders where order_id in (select order_id from involved where emp_id = '+emp_id+');'
+    var query = ' select * from Orders where order_id in (select order_id from Involved where emp_id = '+emp_id+');'
     const conn = await connect(); 
     const [rows, fields] = await conn.execute(query);
     console.log(rows);

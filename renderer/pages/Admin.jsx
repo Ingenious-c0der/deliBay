@@ -54,9 +54,8 @@ function TableMaker(props){
     fetchOrders();
   },[]);
   return(
-    <div>
-    <p></p>
-      <table {...getTableProps()}>
+    <div className>
+      <table className='center' {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
@@ -100,19 +99,23 @@ function CommandBox(){
   }
 
   return(
-    <div>
     
-    <label>Query:
-        <input type="text" value={Command} onChange={getData} id="Command"></input>
-    </label>
-      <button onClick={()=>{setShow(true)}}>See Table</button>
+    <div className='container'>
+    <h1 >Query:</h1>
+    
+    <input type="text" value={Command} onChange={getData} id="Command"></input><br/>
+    
+    
+    <button className='buttoncss' onClick={()=>{setShow(true)}}>See Table</button>
+    
       
 
     
     {Show && <TableMaker commands = {Command}/>}
-    
-    
     </div>
+    
+    
+    
 
   )
 }
