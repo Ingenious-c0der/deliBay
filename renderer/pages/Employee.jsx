@@ -19,26 +19,23 @@ function Employee() {
       <Head>
         <title>Employee</title>
       </Head>
-      <div>
-        <p>
+      <p>
           <Link href="/home">
             <a>Go to home page</a>
           </Link>
         </p>
-        <label>Employee id:</label>
-        <input type="text" value={emp_id_from_user} onChange={getData}></input>
-      </div>
-      <div>
+      <div className='container'>
+
+        <h1>Employee id:</h1>
+        <input type="text" value={emp_id_from_user} onChange={getData}></input><br/>
         <button onClick={() => {
           window.localStorage.setItem("id2",emp_id_from_user);
           //setPrint(true);
 
           location.href = "/EmployeeTables";
           }}>Submit</button>
-        
-
-
       </div>
+
 
       
 

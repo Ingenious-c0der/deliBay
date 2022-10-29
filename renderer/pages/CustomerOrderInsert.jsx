@@ -44,14 +44,14 @@ function CustomerPreviousOrders(props){
   return(
     <div>
     <p>{props.cus_id}</p>
-    <table {...getTableProps()}>
+    <table className='center'{...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
-                <tr{...column.getHeaderProps()}>
+                <th{...column.getHeaderProps()}>
                   {column.render("Header")}
-                </tr>
+                </th>
               ))}
             </tr>
           ))}
@@ -102,18 +102,17 @@ function OrderForm(props){
     location.href = "/Ratings";
   }
   return(
-    <form onSubmit={handleSubmit}>
-      <label>PackageContents{cus_id}:
-        <input type="text" id="PackageContents"></input>
-      </label>
-      <label>
+    <form className='container' onSubmit={handleSubmit}>
+      <h1>PackageContents</h1>
+      <input type="text" id="PackageContents"></input><br/>
+      
         <select id="DeliveryType">
           <option value="1">One-Day Delivery</option>
           <option selected value="2">Standard Delivery</option>
           <option value="3">Prime Delivery</option>
-        </select>
+        </select><br/>
 
-      </label>
+
       <input type="submit"/>
 
     </form>
@@ -149,7 +148,7 @@ function CustomerOrderInsert() {
     return (
       <React.Fragment>
 
-        <div>
+        <div className='container'>
           <p>
             <Link href="/home">
               <a>Go to home page</a>

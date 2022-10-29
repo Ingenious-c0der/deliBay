@@ -307,37 +307,41 @@ function EmployeeTables() {
 
         <div>
           <p>
-            <Link href="/home">
+            
+              <Link href="/home">
               <a>Go to home page</a>
-            </Link>
-            <Link href="/Employee">
+              </Link>
+            
+          </p>  
+          <p>
+              <Link href="/Employee">
               <a>Go to Id page</a>
-            </Link>
+              </Link>
           </p>
         </div>
         <div className='outer-wrapper'>
           <div className='table-wrapper'>
-          <h4>Warehouse</h4>
+          <h2>Warehouse</h2>
           {Warehouse_View}
           </div>
         </div>
         <div className='outer-wrapper'>
           <div className='table-wrapper'>
-          <h4>Previous Orders</h4>
+          <h2>Previous Orders</h2>
           {Orders_View}
           </div>
 
         </div>
         <div className='outer-wrapper'>
           <div className='table-wrapper'>
-          <h4>Vehicles</h4>
+          <h2>Vehicles</h2>
           {Vehicle_View}
 
           </div>
         </div>
         <div className='outer-wrapper'>
           <div className='table-wrapper'>
-          <h4>Rating</h4>
+          <h2>Rating</h2>
           {Rating_View}
           
           </div>

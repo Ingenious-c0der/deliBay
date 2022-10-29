@@ -26,16 +26,17 @@ function Customer() {
       <Head>
         <title>Customer</title>
       </Head>
-      <div>
-        <p>
+      <p>
           <Link href="/home">
             <a>Go to home page</a>
           </Link>
-        </p>
-        <label>Customer id:</label>
+      </p>
+      <div className='container'>
+
+        <h1>Customer id:</h1>
         <input type="text" value={cus_id_from_user} onChange={getData}></input>
       </div>
-      <div>
+      <div className='container'>
         <button onClick={() => {
           window.localStorage.setItem("id1",cus_id_from_user);
           //setPrint(true);
