@@ -7,6 +7,7 @@ import { adminQuery } from '../components/dbcomponents';
 function TableMaker(props){
   const command = props.commands;
   const [orders,setOrders] = useState([]);
+  let flag = false;
   const fetchOrders = async() =>{
    /*const response = await axios
     .get("https://fakestoreapi.com/products")
@@ -26,6 +27,7 @@ function TableMaker(props){
       setOrders(orders);
       console.log('ordess'+ orders);
       setOrders(orders);
+      flag = true;
           
     }
     
@@ -36,55 +38,65 @@ function TableMaker(props){
     
   
 
-  
-  const ordersData = useMemo(() => [...orders],[orders]);
-  const ordersColumns = useMemo(
-    ()=>
-      orders[0]
-        ? Object.keys(orders[0])
-          .map((key)=>{
-            return{Header: key,accessor:key};
-          })
+  if(flag){
+    const ordersData = useMemo(() => [...orders],[orders]);
+    const ordersColumns = useMemo(
+      ()=>
+        orders[0]
+          ? Object.keys(orders[0])
+            .map((key)=>{
+              return{Header: key,accessor:key};
+            })
 
-        : [],[orders]
-  );
-  const tableInstance = useTable({columns: ordersColumns,data:ordersData});
-  const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance;
-  useEffect(() => {
-    fetchOrders();
-  },[]);
-  return(
-    <div className>
-      <table className='center' {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th{...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
-              </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-
-              return (
-                <tr{...row.getRowProps()}>
-                  {row.cells.map((cell, idx) => (
-                    <td {...cell.getCellProps()}>
-                      {cell.render("Cell")}
-                    </td>
+          : [],[orders]
+    );
+    const tableInstance = useTable({columns: ordersColumns,data:ordersData});
+    const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance;
+    useEffect(() => {
+      fetchOrders();
+    },[]);
+    return(
+      <div >
+        <table className='center' {...getTableProps()}>
+            <thead>
+              {headerGroups.map((headerGroup) => (
+                <tr {...headerGroup.getHeaderGroupProps()}>
+                  {headerGroup.headers.map((column) => (
+                    <th{...column.getHeaderProps()}>
+                      {column.render("Header")}
+                    </th>
                   ))}
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </thead>
+            <tbody {...getTableBodyProps()}>
+              {rows.map((row) => {
+                prepareRow(row);
+
+                return (
+                  <tr{...row.getRowProps()}>
+                    {row.cells.map((cell, idx) => (
+                      <td {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </td>
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+    )
+
+  }
+  else{
+    return(
+      <div className='centre'>
+        <h1>No table created</h1>
       </div>
-  )
+    )
+  }
+  
 
 };
 

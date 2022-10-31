@@ -301,7 +301,7 @@ function EmployeeTables() {
     return (
       <React.Fragment>
       <Head>
-        <title>Home</title>
+        <title>Employee Tables</title>
         <link rel='stylesheet' href='Styles/loginchoice.css'></link>
       </Head>
 

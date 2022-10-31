@@ -42,7 +42,7 @@ function Ratings() {
   return (
     <React.Fragment>
       <Head>
-        <title>CutomerRatings</title>
+        <title>Cutomer Ratings</title>
       </Head>
 
       <div>

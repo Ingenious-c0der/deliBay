@@ -147,13 +147,17 @@ function CustomerOrderInsert() {
   
     return (
       <React.Fragment>
-
-        <div className='container'>
-          <p>
+        <div>
+        <p>
           <Link href="/home">
           <img className='home-img' src='images/home-button.png' alt = 'home'/>
           </Link>
-          </p>
+        </p>
+
+        </div>
+
+        <div className='container'>
+
         </div>
         <div>
         <OrderForm cus_id = {id}/>
