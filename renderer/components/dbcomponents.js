@@ -165,6 +165,21 @@ export async  function adminQuery(query )
     
 }
 
+export async function isProduction()
+{
+    try {
+        if (ipcRenderer) {
+            var res=  await ipcRenderer.invoke('isProduction');
+            return res;
+    
+        }
+        return "no ipcRenderer";
+    } catch (error) {
+        console.log(error);
+        return false ;
+    }
+    
+}
 
 
 

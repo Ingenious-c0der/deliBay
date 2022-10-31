@@ -101,6 +101,10 @@ ipcMain.handle(
   }
 );
 
+ipcMain.handle('isProduction', (event, arg) => {
+  return isProd;
+});
+
 
 
 

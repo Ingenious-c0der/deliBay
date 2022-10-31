@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { rate_Employee } from '../components/dbcomponents';
+import { isProduction, rate_Employee } from '../components/dbcomponents';
 
 function Ratings() {
 
@@ -30,10 +30,14 @@ function Ratings() {
         var r = document.getElementById('Rating').value;
         rate_Employee(empid,r);
         
-
-        location.href = "/Customer"
+        if(isProduction())
+        {
+          window.location.href = "app://./Customer.html";
+        }
+        else{
+          location.href = "/Customer"
+        }
     
-        //MySQlfunction insert
     
          
     
