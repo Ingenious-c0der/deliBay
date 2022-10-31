@@ -4,9 +4,13 @@
 /*background-color: blue;*/
     flex-direction: column;
     float: left;
-    width: 30%;
+    width: 33.333%;
+    height: 30%;
     text-align: center;
     
+}
+body{
+    background-color:#a9cafd;
 }
 
 .LoginChoice-img{
@@ -114,14 +118,14 @@ table th{
     position: sticky; 
     top: 0px;
     
-    background-color: #0d0d0d;
+    background-color: #2e2a29;
     color: white;
     
     text-align: center;
     font-weight: normal;
     font-size: 18px;
-    outline: 0.7px solid white;
-    border: 1.5px solid white;
+    outline: 0.7px solid black;
+    border: 1.5px solid black;
 
 } 
 
@@ -141,6 +145,12 @@ table td {
     font-size: 15px;
     border: 1px solid #0d0d0d;
     padding-left: 20px;
+}
+.delibay-header{
+    font-size: 50px;
+    padding:70px;
+    text-align: center;
+
 }
 
 .container{  

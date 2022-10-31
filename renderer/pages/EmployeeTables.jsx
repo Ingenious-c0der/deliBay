@@ -301,7 +301,7 @@ function EmployeeTables() {
     return (
       <React.Fragment>
       <Head>
-        <title>Employee Tables</title>
+        <title>EmployeeTables</title>
         <link rel='stylesheet' href='Styles/loginchoice.css'></link>
       </Head>
 
@@ -311,6 +311,7 @@ function EmployeeTables() {
           <Link href="/home">
           <img className='home-img' src='images/home-button.png' alt = 'home'/>
           </Link>
+          <h1>{id}</h1>
             
 
         </div>
@@ -318,6 +319,8 @@ function EmployeeTables() {
           <div className='table-wrapper'>
           <h2>Warehouse</h2>
           {Warehouse_View}
+          <h2>Rating</h2>
+          {Rating_View}
           </div>
         </div>
         <div className='outer-wrapper'>
@@ -334,14 +337,7 @@ function EmployeeTables() {
 
           </div>
         </div>
-        <div className='outer-wrapper'>
-          <div className='table-wrapper'>
-          <h2>Rating</h2>
-          {Rating_View}
-          
-          </div>
 
-        </div>
 
       </React.Fragment>
     );
