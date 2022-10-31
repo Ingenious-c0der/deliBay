@@ -306,18 +306,13 @@ function EmployeeTables() {
       </Head>
 
         <div>
-          <p>
+        
             
-              <Link href="/home">
-              <a>Go to home page</a>
-              </Link>
+          <Link href="/home">
+          <img className='home-img' src='images/home-button.png' alt = 'home'/>
+          </Link>
             
-          </p>  
-          <p>
-              <Link href="/Employee">
-              <a>Go to Id page</a>
-              </Link>
-          </p>
+
         </div>
         <div className='outer-wrapper'>
           <div className='table-wrapper'>

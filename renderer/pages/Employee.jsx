@@ -19,11 +19,13 @@ function Employee() {
       <Head>
         <title>Employee</title>
       </Head>
-      <p>
-          <Link href="/home">
-            <a>Go to home page</a>
-          </Link>
-        </p>
+      <div>
+      <Link href="/home">
+          <img className='home-img' src='images/home-button.png' alt = 'home'/>
+        </Link>
+
+      </div>
+
       <div className='container'>
 
         <h1>Employee id:</h1>

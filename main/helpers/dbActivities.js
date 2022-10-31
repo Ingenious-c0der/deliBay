@@ -36,7 +36,7 @@ exports.order = async function(args) {
 
 exports.order_history = async function(cus_id)
 {
-  var query = 'select order_date,package_contents from Orders where order_id in (select order_id from Order_History where cus_id = '+cus_id+');';
+  var query = 'select order_date,package_contents,delivery_price from Orders where order_id in (select order_id from Order_History where cus_id = '+cus_id+');';
     const conn = await connect(); 
     const [rows, fields] = await conn.execute(query);
     console.log(rows);

@@ -150,12 +150,9 @@ function CustomerOrderInsert() {
 
         <div className='container'>
           <p>
-            <Link href="/home">
-              <a>Go to home page</a>
-            </Link>
-            <Link href="/Customer">
-              <a>Go to Id page</a>
-            </Link>
+          <Link href="/home">
+          <img className='home-img' src='images/home-button.png' alt = 'home'/>
+          </Link>
           </p>
         </div>
         <div>

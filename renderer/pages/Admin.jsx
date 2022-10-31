@@ -127,11 +127,9 @@ function Admin() {
         <title>Next - Nextron (with-javascript)</title>
       </Head>
       <div>
-        <p>
-          <Link href="/home">
-            <a>Go to home page</a>
-          </Link>
-        </p>
+      <Link href="/home">
+          <img className='home-img' src='images/home-button.png' alt = 'home'/>
+        </Link>
         <CommandBox/>
         
       </div>
