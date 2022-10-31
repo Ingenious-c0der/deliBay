@@ -7,7 +7,6 @@ import { adminQuery } from '../components/dbcomponents';
 function TableMaker(props){
   const command = props.commands;
   const [orders,setOrders] = useState([]);
-  let flag = false;
   const fetchOrders = async() =>{
    /*const response = await axios
     .get("https://fakestoreapi.com/products")
@@ -27,7 +26,6 @@ function TableMaker(props){
       setOrders(orders);
       console.log('ordess'+ orders);
       setOrders(orders);
-      flag = true;
           
     }
     
@@ -38,7 +36,7 @@ function TableMaker(props){
     
   
 
-  if(flag){
+  
     const ordersData = useMemo(() => [...orders],[orders]);
     const ordersColumns = useMemo(
       ()=>
@@ -88,14 +86,7 @@ function TableMaker(props){
         </div>
     )
 
-  }
-  else{
-    return(
-      <div className='centre'>
-        <h1>No table created</h1>
-      </div>
-    )
-  }
+
   
 
 };
