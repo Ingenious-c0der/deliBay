@@ -93,8 +93,19 @@ exports.employee_rating_view = async function(emp_id)
 
 exports.adminQuery = async function(query)
 {
-    const conn = await connect(); 
-    const [rows, fields] = await conn.execute(query);
-    console.log(rows);
-   return rows; 
+
+    try{
+        const conn = await connect(); 
+        const [rows, fields] = await conn.execute(query);
+        console.log(rows);
+        return rows;
+    }
+    catch(err){
+        console.log(err);
+        return {"Error":err}; 
+    }
+   
+    
+  // return {"result":rows, "isArray":Array.isArray(rows)};
+ 
 }

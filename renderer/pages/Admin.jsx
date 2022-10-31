@@ -7,7 +7,8 @@ import { adminQuery } from '../components/dbcomponents';
 function TableMaker(props){
   const command = props.commands;
   const [orders,setOrders] = useState([]);
-  let flag = false;
+  var [responseId, setResponseId] = useState(2);
+  var [ responseError, SetResponseError] = useState("");
   const fetchOrders = async() =>{
    /*const response = await axios
     .get("https://fakestoreapi.com/products")
@@ -19,15 +20,32 @@ function TableMaker(props){
       
     }*/
     const response = await adminQuery(command);
-    console.log('ordess'+response);
+    console.log('ordess' + response);
+    if(response.id == -1 )
+    {
+      // error 
+      console.log(response.error); 
+      setResponseId(-1);
+      SetResponseError(`${response.error}`);
+    }
+    else if (response.id == 0)
+    {
+      // display DDL excecuted successfully 
+      console.log('DDL');
+      setResponseId(0);
+    }
+    else if (response.id == 1){
+      // display DML excecuted successfully 
+      console.log('DML');
+      setResponseId(1);
+    }
 
-    if(response){
+    if(response.id == 1 ){
       console.log(response)
-      const orders = JSON.parse(JSON.stringify(response));
+      const orders = JSON.parse(JSON.stringify(response.result));
       setOrders(orders);
       console.log('ordess'+ orders);
       setOrders(orders);
-      flag = true;
           
     }
     
@@ -38,67 +56,76 @@ function TableMaker(props){
     
   
 
-  if(flag){
-    const ordersData = useMemo(() => [...orders],[orders]);
-    const ordersColumns = useMemo(
-      ()=>
-        orders[0]
-          ? Object.keys(orders[0])
-            .map((key)=>{
-              return{Header: key,accessor:key};
-            })
+  
+  const ordersData = useMemo(() => [...orders],[orders]);
+  const ordersColumns = useMemo(
+    ()=>
+      orders[0]
+        ? Object.keys(orders[0])
+          .map((key)=>{
+            return{Header: key,accessor:key};
+          })
 
-          : [],[orders]
-    );
-    const tableInstance = useTable({columns: ordersColumns,data:ordersData});
-    const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance;
-    useEffect(() => {
-      fetchOrders();
-    },[]);
-    return(
-      <div >
-        <table className='center' {...getTableProps()}>
-            <thead>
-              {headerGroups.map((headerGroup) => (
-                <tr {...headerGroup.getHeaderGroupProps()}>
-                  {headerGroup.headers.map((column) => (
-                    <th{...column.getHeaderProps()}>
-                      {column.render("Header")}
-                    </th>
+        : [],[orders]
+  );
+  const tableInstance = useTable({columns: ordersColumns,data:ordersData});
+  const {getTableProps,getTableBodyProps,headerGroups,rows,prepareRow}=tableInstance;
+  useEffect(() => {
+    fetchOrders();
+  },[]);
+  if(responseId == 1){
+  return(
+   
+    <div className>
+      <table className='center' {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th{...column.getHeaderProps()}>
+                    {column.render("Header")}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+
+              return (
+                <tr{...row.getRowProps()}>
+                  {row.cells.map((cell, idx) => (
+                    <td {...cell.getCellProps()}>
+                      {cell.render("Cell")}
+                    </td>
                   ))}
                 </tr>
-              ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-              {rows.map((row) => {
-                prepareRow(row);
-
-                return (
-                  <tr{...row.getRowProps()}>
-                    {row.cells.map((cell, idx) => (
-                      <td {...cell.getCellProps()}>
-                        {cell.render("Cell")}
-                      </td>
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-    )
-
-  }
-  else{
-    return(
-      <div className='centre'>
-        <h1>No table created</h1>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
-    )
-  }
-  
+  )
+          
 
+}
+else if (responseId == -1){
+  return(
+    <div className='centre'>
+      <h1>Error in sql , please check your syntax and semantics </h1>
+      <h6>{responseError}</h6>
+    </div>
+  )
+}else if(responseId == 0){
+  return(
+    <div className='centre'>
+      <h1>DDL executed successfully</h1>
+    </div>
+  )
 };
+
+}
 
 
 function CommandBox(){

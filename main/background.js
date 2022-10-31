@@ -85,7 +85,19 @@ ipcMain.handle(
 
 ipcMain.handle(
   'DBadminQuery',async (event, arg) => {
-    return  dbAct.adminQuery(arg);
+    const res =  await dbAct.adminQuery(arg);
+    if(res.hasOwnProperty('Error'))
+    {
+      return {"error": res.Error, "id" : -1};
+    }
+    else if (Array.isArray(res))
+    {
+      return { "result":res, "id": 1};
+    }
+    else
+    {
+      return {"id": 0};
+    }
   }
 );
 
