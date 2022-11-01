@@ -29,14 +29,15 @@ function Ratings() {
         e.preventDefault();
         var r = document.getElementById('Rating').value;
         rate_Employee(empid,r);
+        location.href = "/Customer"
         
-        if(isProduction())
+        /*if(isProduction())
         {
           window.location.href = "app://./Customer.html";
         }
         else{
-          location.href = "/Customer"
-        }
+          
+        }*/
     
     
          
@@ -46,13 +47,13 @@ function Ratings() {
   return (
     <React.Fragment>
       <Head>
-        <title>Cutomer Ratings</title>
+        <title>Cutomer Ratings for EmpId: {empid}</title>
       </Head>
 
       <div>
       <form onSubmit={handleSubmit}>
       <label>
-        Rating:
+      Cutomer Ratings for EmpId: {empid}
         <select id="Rating">
           <option value="1">1</option>
           <option value="2">2</option>

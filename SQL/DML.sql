@@ -36,19 +36,19 @@
     Insert into Warehouses values(default, 8);
 
                                      
- Insert into employees values (default,12341,2,1,"John","Doe","ABC Street",2,5,0);
-    Insert into employees values (default,15000,4,2,"Jane","Doe","XYZ Street",4,5,0);
-    Insert into employees values (default,16000,2,1,"James","Fox","PQR Street",2,5,0);
-    Insert into employees values (default,15000,1,2,"Amanda","Doe","nwq Street",1,5,0);
-    Insert into employees values (default,12345,3,1,"Kelly","Doe","wdadad Street",3,5,0);
-    Insert into employees values (default,12346,8,2,"Andrea","Doe","ed3wd Street",8,5,0);
-    Insert into employees values (default,50000,3,2,"Craig","Doe","dc3exc Street",3,5,0);
-    Insert into employees values (default,12348,2,2,"Ryan","Doe","re2da Street",2,5,0);
-    Insert into employees values (default,12349,5,1,"lori","Doe","asdda Street",5,5,0);
-    Insert into employees values (default,16000,7,2,"Matthew","Doe","kew Street",7,5,0);
-    Insert into employees values (default,12351,6,1,"Anne","Doe","lane Street",6,5,0);
-    Insert into employees values (default,12352,4,2,"Nicholas","Doe","wdaC Street",4,5,0);
-    Insert into employees values (default,17000,1,1,"Tom","Doe","sdsda Street",1,5,0);
+ Insert into employees values (default,12341,2,1,"John","Doe","ABC Street",2,5,1);
+    Insert into employees values (default,15000,4,2,"Jane","Doe","XYZ Street",4,5,1);
+    Insert into employees values (default,16000,2,1,"James","Fox","PQR Street",2,5,1);
+    Insert into employees values (default,15000,1,2,"Amanda","Doe","nwq Street",1,5,1);
+    Insert into employees values (default,12345,3,1,"Kelly","Doe","wdadad Street",3,5,1);
+    Insert into employees values (default,12346,8,2,"Andrea","Doe","ed3wd Street",8,5,1);
+    Insert into employees values (default,50000,3,2,"Craig","Doe","dc3exc Street",3,5,1);
+    Insert into employees values (default,12348,2,2,"Ryan","Doe","re2da Street",2,5,1);
+    Insert into employees values (default,12349,5,1,"lori","Doe","asdda Street",5,5,1);
+    Insert into employees values (default,16000,7,2,"Matthew","Doe","kew Street",7,5,1);
+    Insert into employees values (default,12351,6,1,"Anne","Doe","lane Street",6,5,1);
+    Insert into employees values (default,12352,4,2,"Nicholas","Doe","wdaC Street",4,5,1);
+    Insert into employees values (default,17000,1,1,"Tom","Doe","sdsda Street",1,5,1);
 
     Insert into Customer values (default,1,"John","Doe","ABC Street",9850136815,"doe@john.com");
     Insert into Customer values (default,2,"Jane","Doe","XYZ Street",9850136815,"doe@jane.com");
@@ -74,7 +74,7 @@
     Insert into Vehicles values(default,1,3,4,DATE('2019-01-01'),0,10);
     Insert into Vehicles values(default,8,5,5,DATE('2019-01-01'),0,3);
     Insert into Vehicles values(default,2,9,2,DATE('2019-01-01'),0,1);
-
+    
     Insert into Routes values (default,1,6, 1,2,3000);
     Insert into Routes values (default,2,8, 2,3,12000);
     Insert into Routes values (default,3,9, 3,4,15000);
@@ -85,6 +85,7 @@
     Insert into Routes values (default,2,3, 8,1,10000);
     Insert into Routes values (default,3,4, 7,2,7000);
     Insert into Routes values (default,1,2, 2,4,2000);
+    Insert into Routes values (default, 1,2,1,1,400 );
 
     /*fill packages*/
       Insert into Packages values(default,0,"Leather Boots",1,20);
@@ -224,8 +225,8 @@
 
 
    /*procedure for ordering items */
-    delimiter // 
-    create procedure OrderItem( IN  package_contents_in varchar(20), IN delivery_type_in int, IN customer_id int )
+    delimiter //
+    create procedure OrderItem( IN  package_contents_in varchar(20), IN Delivery_Type_in int, IN Customer_id int )
     BEGIN
 
       declare order_date date ; 
@@ -247,41 +248,54 @@
       declare allowed_kiloms_before_maint int ;
       declare maint_date  DATE; 
       SET order_date = CURRENT_DATE() ; 
-      SET package_id_F = (select package_id from packages where package_contents_in = package_contents);
-      update packages set quantity = quantity - 1 where package_id = package_id_F;
-      Insert into Orders values (default, customer_id, package_id_F, delivery_type_in, order_date, 0 ,0, package_contents_in);
+      SET package_id_F = (select package_id from Packages where package_contents_in = package_contents);
+      update Packages set quantity = quantity - 1 where package_id = package_id_F;
+      Insert into Orders values (default, Customer_id, package_id_F, Delivery_Type_in, order_date, 0 ,0, package_contents_in);
       SET order_id_F = (SELECT MAX(order_id) FROM Orders);
-      Insert into active_orders values (customer_id, order_id_F ) ;
-      Insert into order_history values (customer_id, order_id_F ) ;
-      delete from active_orders where customer_id = customer_id and order_id = order_id_F;
-      SET cus_region_id = (select region_id from customer where cus_id = customer_id);
-      SET pac_region_id = (select region_id from packages NATURAL JOIN warehouses where package_id_F = package_id);
-      SET route_id_F = (select route_id from routes where end_region_id = cus_region_id and start_region_id = pac_region_id);
-      Insert into transport_logistics values (customer_id,order_id_F,route_id_F);
-      SET veh_id = (select vehicle_id from routes where route_id = route_id_F);
-      SET emp_id_F = (select emp_id from vehicles where vehicle_id = veh_id);
+      Insert into Active_Orders values (Customer_id, order_id_F ) ;
+      Insert into Order_History values (Customer_id, order_id_F ) ;
+      
+      delete from Active_Orders where Customer_id = Customer_id and order_id = order_id_F;
+      SET cus_region_id = (select region_id from Customer where cus_id = Customer_id);
+      SET pac_region_id = (select region_id from Packages NATURAL JOIN Warehouses where package_id_F = package_id);
+      SET route_id_F = (select route_id from Routes where (end_region_id = cus_region_id and start_region_id = pac_region_id) or (start_region_id = cus_region_id and end_region_id = pac_region_id));
+      IF ISNULL(route_id_F) THEN 
+          delete from Order_History where order_id = order_id_F;
+          delete from Orders where order_id = order_id_F; 
+          select "Cannot Deliver" as "Error Message";
+      ELSE 
+         Insert into Transport_Logistics values (Customer_id,order_id_F,route_id_F);
+          SET veh_id = (select vehicle_id from Routes where route_id = route_id_F);
+          SET emp_id_F = (select emp_id from Vehicles where vehicle_id = veh_id);
 
-      SET vehicle_type_id_F = (select vehicle_type_id from vehicles where vehicle_id = veh_id);
-      SET vehi_mul = (select vehicle_multiplier from vehicles where vehicle_id = veh_id);
-      SET maint_date = (select last_maintenance_date from vehicles where vehicle_id = veh_id);
-      SET deli_type_mul = (select delivery_cost_multiplier from delivery_type where delivery_type_id = delivery_type_in);
-      SET distance_kiloms_F = (select distance_kiloms from routes where route_id = route_id_F);
-      SET current_kiloms_run = (select kiloms_from_last_maint from vehicles where vehicle_id = veh_id) + distance_kiloms_F;
-      SET vehicle_type_id_F = (select vehicle_type_id from vehicles where vehicle_id = veh_id);
-      SET allowed_kiloms_before_maint = (select maint_kiloms from vehicle_type where vehicle_type_id = vehicle_type_id_F);
-      IF current_kiloms_run > allowed_kiloms_before_maint THEN
-      SET current_kiloms_run = 0;
-      SET maint_date = order_date ;
-      update vehicles set last_maintenance_date = maint_date where vehicle_id = veh_id;
-      END IF;
-      update vehicles set kiloms_from_last_maint = current_kiloms_run where vehicle_id = veh_id;
+          SET vehicle_type_id_F = (select vehicle_type_id from Vehicles where vehicle_id = veh_id);
+          SET vehi_mul = (select vehicle_multiplier from Vehicles where vehicle_id = veh_id);
+          SET maint_date = (select last_maintenance_date from Vehicles where vehicle_id = veh_id);
+          SET deli_type_mul = (select delivery_cost_multiplier from Delivery_Type where Delivery_Type_id = Delivery_Type_in);
+          SET distance_kiloms_F = (select distance_kiloms from Routes where route_id = route_id_F);
+          SET current_kiloms_run = (select kiloms_from_last_maint from Vehicles where vehicle_id = veh_id) + distance_kiloms_F;
+          SET vehicle_type_id_F = (select vehicle_type_id from Vehicles where vehicle_id = veh_id);
+          SET allowed_kiloms_before_maint = (select maint_kiloms from Vehicle_Type where vehicle_type_id = vehicle_type_id_F);
+          IF current_kiloms_run > allowed_kiloms_before_maint THEN
+          SET current_kiloms_run = 0;
+          SET maint_date = order_date ;
+          update Vehicles set last_maintenance_date = maint_date where vehicle_id = veh_id;
+          END IF;
+      update Vehicles set kiloms_from_last_maint = current_kiloms_run where vehicle_id = veh_id;
       SET delivery_cost = distance_kiloms_F * vehi_mul * deli_type_mul * 0.005;
       insert into Involved values ( emp_id_F,order_id_F);
       update Orders set delivery_price = delivery_cost,completed = 1 where order_id = order_id_F;
       SET emp_id_for_rating = emp_id_F;
       select emp_id_for_rating as EMPFRATING, delivery_cost as PRICE, package_id_F, order_id_F, veh_id, vehicle_type_id_F, vehi_mul, deli_type_mul, route_id_F, distance_kiloms_F, current_kiloms_run, vehicle_type_id_F, allowed_kiloms_before_maint, maint_date;
+
+      END IF;
+      
+      
+     
     END //
-      delimiter ;
+    delimiter ; 
+
+
    /*procedure for rating employee */
     create procedure rate_Employee(IN new_rating int, IN emp_id_for_rating int)
     BEGIN 

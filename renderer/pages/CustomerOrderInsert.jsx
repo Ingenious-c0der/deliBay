@@ -79,6 +79,7 @@ function CustomerPreviousOrders(props){
 
 function OrderForm(props){
   var [cus_id,Setid] = useState(props.cus_id);
+  var [responseId,SetResponseId] = useState(2);
   useEffect(()=>{
       //console.log(cus_id);
       Setid(window.localStorage.getItem('id1'));
@@ -90,19 +91,21 @@ function OrderForm(props){
     var PackageContents = document.getElementById('PackageContents').value;
     var DeliveryType = document.getElementById('DeliveryType').value;
     var response = await order(PackageContents,DeliveryType,cus_id);
-    if(response){
+    SetResponseId(response.id);
+    if(response.id == 1){
       
-      const EMP_ID = JSON.parse(JSON.stringify(response));
+      const EMP_ID = JSON.parse(JSON.stringify(response.res));
       window.localStorage.setItem("id3",EMP_ID[0][0].EMPFRATING);
-      
+      location.href = "/Ratings";
+  }
       //console.log('Response');
       
     }
 
-    location.href = "/Ratings";
-  }
+  if(responseId == -1)
+  {
   return(
-    <form className='container' onSubmit={handleSubmit}>
+    <div><form className='container' onSubmit={handleSubmit}>
       <h1>PackageContents</h1>
       <input type="text" id="PackageContents"></input><br/>
       
@@ -116,8 +119,31 @@ function OrderForm(props){
       <input type="submit"/>
 
     </form>
+    <h1>Sorry , we do not operate on this Path yet</h1>
+    </div>
 
   )
+  }else
+  {
+    return(
+      <form className='container' onSubmit={handleSubmit}>
+        <h1>PackageContents</h1>
+        <input type="text" id="PackageContents"></input><br/>
+        
+          <select id="DeliveryType">
+            <option value="1">One-Day Delivery</option>
+            <option selected value="2">Standard Delivery</option>
+            <option value="3">Prime Delivery</option>
+          </select><br/>
+  
+  
+        <input type="submit"/>
+  
+      </form>
+  
+    )
+
+  }
 
 
 }
