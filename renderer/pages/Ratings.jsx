@@ -25,17 +25,17 @@ function Ratings() {
   
   
     // Perform localStorage action
-    const handleSubmit = (e) =>{
+    const handleSubmit = async (e) =>{
         e.preventDefault();
         var r = document.getElementById('Rating').value;
         rate_Employee(empid,r);
         
-        if(isProduction())
+        if(await isProduction())
         {
-          window.location.href = "app://./Customer.html";
+          window.location.href ="/Customer";
         }
         else{
-          location.href = "/Customer"
+          window.location.href = "/Customer";
         }
     
     
@@ -47,6 +47,7 @@ function Ratings() {
     <React.Fragment>
       <Head>
         <title>Cutomer Ratings</title>
+        <h1>Order Delivered Successfully ! Please rate the Order</h1>
       </Head>
 
       <div>
