@@ -30,8 +30,17 @@ exports.order = async function(args) {
     var query = 'call OrderItem("'+args.package_contents+'",'+args.delivery_type+','+args.customer_region+')';
     const conn = await connect(); 
     const [rows, fields] = await conn.execute(query);
-    console.log(rows);
-    return rows;
+    //console.log(rows[0]);
+    if(rows[0][0].hasOwnProperty("Error Message"))
+    {
+        console.log("here");
+        return {id:-1};
+    }
+    else
+    {
+        return {"res":rows, "id": 1};
+    }
+
 }
 
 exports.order_history = async function(cus_id)

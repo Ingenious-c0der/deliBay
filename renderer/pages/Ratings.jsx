@@ -29,6 +29,7 @@ function Ratings() {
         e.preventDefault();
         var r = document.getElementById('Rating').value;
         rate_Employee(empid,r);
+        location.href = "/Customer"
         
         if(await isProduction())
         {
@@ -53,7 +54,7 @@ function Ratings() {
       <div>
       <form onSubmit={handleSubmit}>
       <label>
-        Rating:
+      Cutomer Ratings for EmpId: {empid}
         <select id="Rating">
           <option value="1">1</option>
           <option value="2">2</option>
